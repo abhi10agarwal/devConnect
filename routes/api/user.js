@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const gravatar = require('gravator')
+const gravatar = require('gravatar')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
@@ -38,7 +38,6 @@ router.post(
 					.status(400)
 					.json({ errors: [{ msg: 'User already exists' }] })
 			}
-
 			const avatar = normalize(
 				gravatar.url(email, {
 					s: '200',
@@ -47,7 +46,6 @@ router.post(
 				}),
 				{ forceHttps: true }
 			)
-
 			user = new User({
 				name,
 				email,

@@ -1,4 +1,0 @@
-{
-	"mongoURI": "mongodb+srv://ragnatool:8190@shubhaM@devconnect-wdkk8.mongodb.net/test?retryWrites=true&w=majority",
-	"jwtSecrect": "mysecrettoken"
-}
