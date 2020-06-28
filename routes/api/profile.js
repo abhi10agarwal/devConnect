@@ -29,8 +29,9 @@ router.get('/me', auth, async (req, res) => {
 	}
 })
 
-// create or update user profile
-
+// @route    POST api/profile
+// @desc     Create or update user profile
+// @access   Private
 router.post(
 	'/',
 	[
@@ -45,22 +46,23 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() })
 		}
+
 		const {
 			company,
-			location,
 			website,
+			location,
 			bio,
-			skills,
 			status,
 			githubusername,
+			skills,
 			youtube,
+			facebook,
 			twitter,
 			instagram,
-			linkedin,
-			facebook
+			linkedin
 		} = req.body
-		//build profile object
 
+		// Build profile object
 		const profileFields = {}
 		profileFields.user = req.user.id
 		if (company) profileFields.company = company
@@ -72,25 +74,30 @@ router.post(
 		if (skills) {
 			profileFields.skills = skills.split(',').map(skill => skill.trim())
 		}
-		//build social object
+
+		// Build social object
 		profileFields.social = {}
 		if (youtube) profileFields.social.youtube = youtube
 		if (twitter) profileFields.social.twitter = twitter
 		if (facebook) profileFields.social.facebook = facebook
 		if (linkedin) profileFields.social.linkedin = linkedin
 		if (instagram) profileFields.social.instagram = instagram
+
 		try {
 			let profile = await Profile.findOne({ user: req.user.id })
+
 			if (profile) {
-				//update
-				let profile = await Profile.findOneAndUpdate(
+				// Update
+				profile = await Profile.findOneAndUpdate(
 					{ user: req.user.id },
 					{ $set: profileFields },
 					{ new: true }
 				)
-				res.json(profile)
+
+				return res.json(profile)
 			}
-			//create
+
+			// Create
 			profile = new Profile(profileFields)
 
 			await profile.save()
@@ -101,7 +108,6 @@ router.post(
 		}
 	}
 )
-
 //Get all profiles
 
 router.get('/', async (req, res) => {
