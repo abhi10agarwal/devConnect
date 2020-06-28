@@ -1,0 +1,6 @@
+{
+	"mongoURI": "mongodb+srv://ragnatool:8190@shubhaM@devconnect-wdkk8.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "mysecrettoken",
+	"githubClientId": "56b1c94e524fcb206fa2",
+	"githubSecret": "4fbec07feb0bf0eda941c83b7e7aed94be81df8c"
+}
