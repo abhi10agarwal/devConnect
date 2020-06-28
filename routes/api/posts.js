@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const { check, validationResult } = require('express-validator/check')
 const auth = require('../../middleware/auth')
-const { check, validationResult } = require('express-validator')
+
 const Post = require('../../models/Post')
+const Profile = require('../../models/Profile')
 const User = require('../../models/User')
 
-// @route GET api/post
-
+// @route    POST api/posts
+// @desc     Create a post
+// @access   Private
 router.post(
 	'/',
 	[auth, [check('text', 'Text is required').not().isEmpty()]],
@@ -35,7 +38,10 @@ router.post(
 		}
 	}
 )
-// Get All post
+
+// @route    GET api/posts
+// @desc     Get all posts
+// @access   Private
 router.get('/', auth, async (req, res) => {
 	try {
 		const posts = await Post.find().sort({ date: -1 })
@@ -45,6 +51,7 @@ router.get('/', auth, async (req, res) => {
 		res.status(500).send('Server Error')
 	}
 })
+
 // @route    GET api/posts/:id
 // @desc     Get post by ID
 // @access   Private
@@ -65,6 +72,7 @@ router.get('/:id', auth, async (req, res) => {
 		res.status(500).send('Server Error')
 	}
 })
+
 // @route    DELETE api/posts/:id
 // @desc     Delete a post
 // @access   Private
@@ -148,6 +156,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 		res.status(500).send('Server Error')
 	}
 })
+
 // @route    POST api/posts/comment/:id
 // @desc     Comment on a post
 // @access   Private
