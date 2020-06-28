@@ -204,7 +204,7 @@ const CreateProfile = ({ createProfile, history }) => {
 								type='text'
 								placeholder='Instagram URL'
 								name='instagram'
-								value={facebook}
+								value={instagram}
 								onChange={e => onChange(e)}
 							/>
 						</div>
